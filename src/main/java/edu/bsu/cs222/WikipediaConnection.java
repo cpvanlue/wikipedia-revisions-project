@@ -19,21 +19,23 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-public class WikipediaConnectionDemo {
+public class WikipediaConnection {
 
-    public static void main(String[] args)
-            throws IOException, ParserConfigurationException, SAXException, TransformerException {
-        URLConnection connection = connectToWikipedia();
-        Document document = readXmlDocumentFrom(connection);
-        printDocument(document);
-    }
+//    public static void main(String[] args)
+//            throws IOException, ParserConfigurationException, SAXException, TransformerException {
+//        URLConnection connection = connectToWikipedia();
+//        Document document = readXmlDocumentFrom(connection);
+//        printDocument(document);
+//    }
 
-    private static URLConnection connectToWikipedia() throws IOException {
+    private static URLConnection connectToWikipedia(String input) throws IOException {
+        SearchTermToUrl searchTerm = new SearchTermToUrl();
+        searchTerm.convert(input);
         URL url = new URL(
-                "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&format=xml&rvprop=timestamp%7Cuser&rvlimit=4&titles=frank%20zappa&redirects=");
+                "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&format=xml&rvprop=timestamp%7Cuser&rvlimit=20&titles=" + searchTerm + "&redirects=");
         URLConnection connection = url.openConnection();
         connection.setRequestProperty("User-Agent",
-                "CS222FirstProject/0.1 (dllargent@bsu.edu)");
+                "CS222FirstProject/0.1 (cpvanlue@bsu.edu)");
         connection.connect();
         return connection;
     }
