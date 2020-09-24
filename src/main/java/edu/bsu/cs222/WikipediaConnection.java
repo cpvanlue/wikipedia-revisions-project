@@ -12,10 +12,9 @@ public class WikipediaConnection {
     public static void main(String[] args) throws IOException {
         URLConnection connection = connectToWikipedia();
         String jsonData = readJsonDataFrom(connection);
-        System.out.println(jsonData);
     }
 
-    private static URLConnection connectToWikipedia() throws IOException {
+    public static URLConnection connectToWikipedia() throws IOException {
         URL url = new URL(
                 "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&format=json&rvprop=timestamp%7Cuser&rvlimit=20&titles=zappa&redirects=");
         URLConnection connection = url.openConnection();
@@ -25,7 +24,7 @@ public class WikipediaConnection {
         return connection;
     }
 
-    private static String readJsonDataFrom(URLConnection connection) throws IOException {
+    public static String readJsonDataFrom(URLConnection connection) throws IOException {
         StringBuilder jsonStringBuilder = new StringBuilder();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String jsonData;
