@@ -12,6 +12,7 @@ public class WikipediaConnection {
     public static void main(String[] args) throws IOException {
         URLConnection connection = connectToWikipedia();
         String jsonData = readJsonDataFrom(connection);
+        System.out.println(jsonData);
     }
 
     public static URLConnection connectToWikipedia() throws IOException {

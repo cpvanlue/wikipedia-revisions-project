@@ -1,0 +1,40 @@
+{
+  "continue":{
+    "rvcontinue":"20200917205641|978941081",
+    "continue":"||"
+  },
+  "query":{
+    "redirects":[
+      {
+        "from":"Zappa",
+        "to":"Frank Zappa"
+      }
+    ],
+    "pages":{
+      "10672":{
+        "pageid":10672,
+        "ns":0,
+        "title":"Frank Zappa",
+        "revisions":[
+          {
+            "user":"DVdm",
+            "timestamp":"2020-09-21T11:32:46Z"
+          },
+          {
+            "user":"179.53.16.150",
+            "anon":"",
+            "timestamp":"2020-09-21T09:22:33Z"
+          },
+          {
+            "user":"Strudjum",
+            "timestamp":"2020-09-20T03:13:40Z"
+          },
+          {
+            "user":"ClueBot NG",
+            "timestamp":"2020-09-17T20:57:00Z"
+          }
+        ]
+      }
+    }
+  }
+}
