@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="edu.bsu.cs222.ReadXmlFromFileTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-09-24T03:30:53" hostname="DESKTOP-TNE4N1O" time="0.12">
+<testsuite name="edu.bsu.cs222.ReadXmlFromFileTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-09-24T17:51:49" hostname="DESKTOP-CUMPNDM" time="0.075">
   <properties/>
-  <testcase name="testReadXmlDocumentFromFile()" classname="edu.bsu.cs222.ReadXmlFromFileTest" time="0.087"/>
-  <testcase name="testCountRevisionChildrenWithXpath()" classname="edu.bsu.cs222.ReadXmlFromFileTest" time="0.032"/>
+  <testcase name="testReadXmlDocumentFromFile()" classname="edu.bsu.cs222.ReadXmlFromFileTest" time="0.049"/>
+  <testcase name="testCountRevisionChildrenWithXpath()" classname="edu.bsu.cs222.ReadXmlFromFileTest" time="0.026"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
