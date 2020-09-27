@@ -7,9 +7,11 @@ import com.google.gson.JsonParser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.URLConnection;
 import java.util.Map;
 
 public class RevisionParserTest {
@@ -31,5 +33,14 @@ public class RevisionParserTest {
         JsonObject firstObject = firstRevision.getAsJsonObject();
         String name = firstObject.get("user").toString();
         Assertions.assertEquals("\"DVdm\"", name);
+    }
+    @Test
+    public void testParseReturnsFirstName() throws IOException {
+        RevisionParser parser = new RevisionParser();
+        WikipediaConnection wikipediaConnection = new WikipediaConnection();
+        URLConnection connection = wikipediaConnection.connectToWikipedia("zappa");
+        JsonObject query = wikipediaConnection.readJsonDataFrom(connection);
+        String firstAuthor = parser.parse(query);
+        Assertions.assertEquals("\"Davenold\"", firstAuthor);
     }
 }
