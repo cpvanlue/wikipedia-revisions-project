@@ -11,4 +11,6 @@ public class MenuTestClass {
         String searchTerm = userInterface.collectSearchTerm();
         Assertions.assertEquals("zappa", searchTerm);
     }
+
+
 }

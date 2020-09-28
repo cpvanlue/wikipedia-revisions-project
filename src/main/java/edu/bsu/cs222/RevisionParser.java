@@ -22,4 +22,11 @@ public class RevisionParser {
         }
         return revisionsList;
     }
+
+    public static String createCleanEntry(List<JsonObject> revisionsList, int i) {
+        JsonObject firstObject = revisionsList.get(i);
+        String firstUsername = firstObject.get("user").getAsString().replaceAll("\"", "");
+        String firstTimestamp = firstObject.get("timestamp").getAsString();
+        return "Username: " + firstUsername + ", Timestamp: " + firstTimestamp + "\n";
+    }
 }
