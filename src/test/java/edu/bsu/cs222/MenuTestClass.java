@@ -8,7 +8,8 @@ import java.io.IOException;
 import java.net.URLConnection;
 import java.util.List;
 
-import static edu.bsu.cs222.RevisionParser.parse;
+import static edu.bsu.cs222.RevisionParser.createListOfCleanEntries;
+import static edu.bsu.cs222.RevisionParser.parseRevisionsToList;
 import static edu.bsu.cs222.UserInterface.collectSearchTerm;
 import static edu.bsu.cs222.WikipediaConnection.*;
 
@@ -21,13 +22,13 @@ public class MenuTestClass {
     }
 
     @Test
+    //this tests with live data, will likely fail after 9/29/20
     public void testUserInputReturnsCleanList() throws IOException {
         String searchTerm = "zappa";
         URLConnection connection = connectToWikipedia(searchTerm);
         JsonObject query = readJsonDataFrom(connection);
-        RevisionParser parser = new RevisionParser();
-        List<JsonObject> revisionsList = parse(query);
-        String cleanList = parser.createListOfCleanEntries(revisionsList);
+        List<JsonObject> revisionsList = parseRevisionsToList(query);
+        String cleanList = createListOfCleanEntries(revisionsList);
         Assertions.assertEquals("Username: Davenold, Timestamp: 2020-09-27T14:29:15Z\nUsername: DVdm, Timestamp: 2020-09-21T11:32:46Z" +
                         "\nUsername: 179.53.16.150, Timestamp: 2020-09-21T09:22:33Z" +
                         "\nUsername: Strudjum, Timestamp: 2020-09-20T03:13:40Z" +

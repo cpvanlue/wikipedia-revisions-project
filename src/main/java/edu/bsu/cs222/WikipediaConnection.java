@@ -12,7 +12,7 @@ import java.net.URLConnection;
 
 public class WikipediaConnection {
 
-    public static JsonObject collectObjectFromWikipedia(String searchTerm) throws IOException {
+    public static JsonObject collectJsonObjectFromWikipedia(String searchTerm) throws IOException {
         URLConnection connection = connectToWikipedia(searchTerm);
         return readJsonDataFrom(connection);
     }
