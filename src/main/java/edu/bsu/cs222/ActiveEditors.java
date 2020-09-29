@@ -10,11 +10,12 @@ public class ActiveEditors {
         JsonObject revision = revisionsList.get(i);
         String username = revision.get("user").getAsString();
         int counter = 0;
-        for (int j = 0; j < revisionsList.size(); j++) {
-            if (revisionsList.get(j).get("user").getAsString().equals(username)) {
+        for (JsonObject jsonObject : revisionsList) {
+            if (jsonObject.get("user").getAsString().equals(username)) {
                 counter += 1;
             }
-        } return counter;
+        }
+        return counter;
     }
 
     public static String createNumberOfEditsString(List<JsonObject> revisionsList) {

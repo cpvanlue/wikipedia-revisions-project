@@ -15,13 +15,7 @@ public class ActiveEditorsTest {
         URLConnection connection = WikipediaConnection.connectToWikipedia("zappa");
         JsonObject query = WikipediaConnection.readJsonDataFrom(connection);
         List<JsonObject> revisionsList = RevisionParser.parseRevisionsToList(query);
-        ActiveEditors activeEditors = new ActiveEditors();
-        int numberOfEdits = activeEditors.collectNumberOfEdits(revisionsList, 0);
+        int numberOfEdits = ActiveEditors.collectNumberOfEdits(revisionsList, 0);
         Assertions.assertEquals(2, numberOfEdits);
-    }
-
-    @Test
-    public void canReturnMostRecentEditTimestamp() throws IOException {
-
     }
 }

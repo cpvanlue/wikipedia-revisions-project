@@ -50,12 +50,12 @@ public class UserInterface {
                         System.out.println("No connection available.");
                         return;
                     }
-                    ActiveEditors activeEditors = new ActiveEditors();
-                    String editorsList = activeEditors.createNumberOfEditsString(RevisionParser.parseRevisionsToList(wikiData));
+                    String editorsList = ActiveEditors.createNumberOfEditsString(RevisionParser.parseRevisionsToList(wikiData));
                     System.out.println(editorsList);
                     searchKeyword = collectSearchKeyword();
-                } option = collectSearchOption();
+                }
             }
+            option = collectSearchOption();
         }
     }
 }
