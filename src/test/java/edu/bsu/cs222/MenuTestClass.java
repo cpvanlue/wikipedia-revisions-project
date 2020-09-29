@@ -8,24 +8,25 @@ import java.io.IOException;
 import java.net.URLConnection;
 import java.util.List;
 
+import static edu.bsu.cs222.RevisionParser.parse;
+import static edu.bsu.cs222.UserInterface.collectSearchTerm;
+import static edu.bsu.cs222.WikipediaConnection.*;
+
 public class MenuTestClass {
 
     @Test
     public void testUserInputReturnSearchTerm(){
-        UserInterface userInterface = new UserInterface();
-        String searchTerm = userInterface.collectSearchTerm();
+        String searchTerm = collectSearchTerm();
         Assertions.assertEquals("zappa", searchTerm);
     }
 
     @Test
     public void testUserInputReturnsCleanList() throws IOException {
-        UserInterface userInterface = new UserInterface();
         String searchTerm = "zappa";
-        WikipediaConnection wikipediaConnection = new WikipediaConnection();
-        URLConnection connection = wikipediaConnection.connectToWikipedia(searchTerm);
-        JsonObject query = wikipediaConnection.readJsonDataFrom(connection);
+        URLConnection connection = connectToWikipedia(searchTerm);
+        JsonObject query = readJsonDataFrom(connection);
         RevisionParser parser = new RevisionParser();
-        List<JsonObject> revisionsList = parser.parse(query);
+        List<JsonObject> revisionsList = parse(query);
         String cleanList = parser.createListOfCleanEntries(revisionsList);
         Assertions.assertEquals("Username: Davenold, Timestamp: 2020-09-27T14:29:15Z\nUsername: DVdm, Timestamp: 2020-09-21T11:32:46Z" +
                         "\nUsername: 179.53.16.150, Timestamp: 2020-09-21T09:22:33Z" +

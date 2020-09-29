@@ -12,11 +12,10 @@ public class RevisionParser {
 
     public String parseAndReturnCleanString(JsonObject object) {
         List<JsonObject> revisionsList = parse(object);
-        String cleanRevisionsList = createListOfCleanEntries(revisionsList);
-        return cleanRevisionsList;
+        return createListOfCleanEntries(revisionsList);
     }
 
-    public List<JsonObject> parse(JsonObject object){
+    public static List<JsonObject> parse(JsonObject object){
         JsonObject pages = object.getAsJsonObject("query").getAsJsonObject("pages");
         JsonArray array = null;
         List<JsonObject> revisionsList = new ArrayList<>();
@@ -43,15 +42,15 @@ public class RevisionParser {
     }
 
     public String createListOfCleanEntries(List<JsonObject> revisionsList) {
-        String prettyRevisionsList = "";
+        StringBuilder prettyRevisionsList = new StringBuilder();
         if (revisionsList != null){
             for (int i = 0; i < revisionsList.size(); i++) {
                 String cleanEntry = createCleanEntry(revisionsList, i);
-                prettyRevisionsList = prettyRevisionsList + cleanEntry;
+                prettyRevisionsList.append(cleanEntry);
             }
         } else {
             return null;
         }
-        return prettyRevisionsList;
+        return prettyRevisionsList.toString();
     }
 }

@@ -4,9 +4,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
 import java.io.IOException;
-import java.net.URLConnection;
-import java.util.List;
 import java.util.Scanner;
+
+import static edu.bsu.cs222.WikipediaConnection.collectObjectFromWikipedia;
 
 public class UserInterface {
 
@@ -18,10 +18,9 @@ public class UserInterface {
 
     public static void main(String[] args) {
         String searchTerm = collectSearchTerm();
-        WikipediaConnection wikipediaConnection = new WikipediaConnection();
         JsonObject jsonData = null;
         try {
-            jsonData = wikipediaConnection.collectObjectFromWikipedia(searchTerm);
+            jsonData = collectObjectFromWikipedia(searchTerm);
         } catch (IOException e) {
             System.out.println("No connection available.");
             return;

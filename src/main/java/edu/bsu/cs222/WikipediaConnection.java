@@ -6,7 +6,6 @@ import com.google.gson.JsonParser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -15,13 +14,12 @@ public class WikipediaConnection {
 
     public static JsonObject collectObjectFromWikipedia(String searchTerm) throws IOException {
         URLConnection connection = connectToWikipedia(searchTerm);
-        JsonObject jsonData = readJsonDataFrom(connection);
-        return jsonData;
+        return readJsonDataFrom(connection);
     }
 
     public static URLConnection connectToWikipedia(String searchTerm) throws IOException {
         searchTerm = keywordToURL(searchTerm);
-        URL url = null;
+        URL url;
         url = new URL(
                 "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&format=json&rvprop=timestamp%7Cuser&rvlimit=20&titles="+searchTerm+"&redirects=");
         URLConnection connection = url.openConnection();
@@ -35,12 +33,10 @@ public class WikipediaConnection {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String jsonData;
         while ((jsonData = bufferedReader.readLine()) != null) {
-            jsonStringBuilder.append(jsonData + "\n");
+            jsonStringBuilder.append(jsonData).append("\n");
         }
         String websiteInfo = jsonStringBuilder.toString().trim();
-        JsonParser jsonParser = new JsonParser();
-        JsonObject object = (JsonObject) jsonParser.parse(websiteInfo);
-        return object;
+        return (JsonObject) JsonParser.parseString(websiteInfo);
     }
 
     public static String keywordToURL (String input){
