@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import static edu.bsu.cs222.RevisionParser.parseAndReturnCleanResultsString;
+import static edu.bsu.cs222.RevisionParser.parseRevisionsToList;
 import static edu.bsu.cs222.WikipediaConnection.collectJsonObjectFromWikipedia;
 
 public class UserInterface {
