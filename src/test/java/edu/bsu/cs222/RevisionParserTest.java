@@ -55,4 +55,15 @@ public class RevisionParserTest {
         String cleanFirstEntry = parser.createCleanEntry(revisionsList, 0);
         Assertions.assertEquals("Username: Davenold, Timestamp: 2020-09-27T14:29:15Z\n", cleanFirstEntry);
     }
+
+    @Test
+    public void testBullshit() throws IOException {
+        RevisionParser parser = new RevisionParser();
+        WikipediaConnection wikipediaConnection = new WikipediaConnection();
+        URLConnection connection = wikipediaConnection.connectToWikipedia("frank zappa");
+        JsonObject query = wikipediaConnection.readJsonDataFrom(connection);
+        List<JsonObject> revisionsList = parser.parse(query);
+        String cleanList = parser.createListOfCleanEntries(revisionsList);
+        System.out.println(cleanList);
+    }
 }

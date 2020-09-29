@@ -9,6 +9,13 @@ import java.util.List;
 import java.util.Map;
 
 public class RevisionParser {
+
+    public String parseAndReturnCleanString(JsonObject object) {
+        List<JsonObject> revisionsList = parse(object);
+        String cleanRevisionsList = createListOfCleanEntries(revisionsList);
+        return cleanRevisionsList;
+    }
+
     public List<JsonObject> parse(JsonObject object){
         JsonObject pages = object.getAsJsonObject("query").getAsJsonObject("pages");
         JsonArray array = null;
@@ -17,8 +24,13 @@ public class RevisionParser {
             JsonObject entryObject = entry.getValue().getAsJsonObject();
             array = entryObject.getAsJsonArray("revisions");
         }
-        for (int i=0; i<array.size(); i++){
-            revisionsList.add(array.get(i).getAsJsonObject());
+        if (array != null) {
+            for (int i = 0; i < array.size(); i++) {
+                revisionsList.add(array.get(i).getAsJsonObject());
+            }
+        } else {
+            System.out.println("There is no Wikipedia entry for this query.");
+            return null;
         }
         return revisionsList;
     }
@@ -28,5 +40,18 @@ public class RevisionParser {
         String firstUsername = firstObject.get("user").getAsString().replaceAll("\"", "");
         String firstTimestamp = firstObject.get("timestamp").getAsString();
         return "Username: " + firstUsername + ", Timestamp: " + firstTimestamp + "\n";
+    }
+
+    public String createListOfCleanEntries(List<JsonObject> revisionsList) {
+        String prettyRevisionsList = "";
+        if (revisionsList != null){
+            for (int i = 0; i < revisionsList.size(); i++) {
+                String cleanEntry = createCleanEntry(revisionsList, i);
+                prettyRevisionsList = prettyRevisionsList + cleanEntry;
+            }
+        } else {
+            return null;
+        }
+        return prettyRevisionsList;
     }
 }

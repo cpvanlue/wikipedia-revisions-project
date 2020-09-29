@@ -6,18 +6,26 @@ import com.google.gson.JsonParser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
 
 public class WikipediaConnection {
 
+    public static JsonObject collectObjectFromWikipedia(String searchTerm) throws IOException {
+        URLConnection connection = connectToWikipedia(searchTerm);
+        JsonObject jsonData = readJsonDataFrom(connection);
+        return jsonData;
+    }
+
     public static URLConnection connectToWikipedia(String searchTerm) throws IOException {
-        URL url = new URL(
+        searchTerm = keywordToURL(searchTerm);
+        URL url = null;
+        url = new URL(
                 "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&format=json&rvprop=timestamp%7Cuser&rvlimit=20&titles="+searchTerm+"&redirects=");
         URLConnection connection = url.openConnection();
-        connection.setRequestProperty("User-Agent",
-                "CS222FirstProject/0.1 (cpvanlue@bsu.edu)");
+        connection.setRequestProperty("User-Agent", "CS222FirstProject/0.1 (cpvanlue@bsu.edu)");
         connection.connect();
         return connection;
     }
