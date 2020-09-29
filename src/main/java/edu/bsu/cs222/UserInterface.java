@@ -6,30 +6,56 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import static edu.bsu.cs222.RevisionParser.parseAndReturnCleanResultsString;
-import static edu.bsu.cs222.RevisionParser.parseRevisionsToList;
 import static edu.bsu.cs222.WikipediaConnection.collectJsonObjectFromWikipedia;
 
 public class UserInterface {
 
-    public static String collectSearchTerm() {
+    public static String collectSearchOption() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter a search term or type exit to quit: ");
+        System.out.println("Welcome! Enter 1 to search for revisions or 2 to search for top edits.\nType exit to quit.");
+        return scanner.nextLine();
+    }
+
+    public static String collectSearchKeyword() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter a search term or type exit to return to previous menu.");
         return scanner.nextLine();
     }
 
     public static void main(String[] args) {
-        String searchTerm = collectSearchTerm();
-        while (!searchTerm.equals("exit")) {
-            JsonObject wikiData;
-            try {
-                wikiData = collectJsonObjectFromWikipedia(searchTerm);
-            } catch (IOException e) {
-                System.out.println("No connection available.");
-                return;
+        String option = collectSearchOption();
+        while (!option.equals("exit")) {
+            if (option.equals("1")) {
+                String searchKeyword = collectSearchKeyword();
+                while (!searchKeyword.equals("exit")) {
+                    JsonObject wikiData;
+                    try {
+                        wikiData = collectJsonObjectFromWikipedia(searchKeyword);
+                    } catch (IOException e) {
+                        System.out.println("No connection available.");
+                        return;
+                    }
+                    String cleanList = parseAndReturnCleanResultsString(wikiData);
+                    System.out.println(cleanList);
+                    searchKeyword = collectSearchKeyword();
+                } option = collectSearchOption();
             }
-            String cleanList = parseAndReturnCleanResultsString(wikiData);
-            System.out.println(cleanList);
-            searchTerm = collectSearchTerm();
+            if (option.equals("2")) {
+                String searchKeyword = collectSearchKeyword();
+                while (!searchKeyword.equals("exit")) {
+                    JsonObject wikiData;
+                    try {
+                        wikiData = collectJsonObjectFromWikipedia(searchKeyword);
+                    } catch (IOException e) {
+                        System.out.println("No connection available.");
+                        return;
+                    }
+                    ActiveEditors activeEditors = new ActiveEditors();
+                    String editorsList = activeEditors.createNumberOfEditsString(RevisionParser.parseRevisionsToList(wikiData));
+                    System.out.println(editorsList);
+                    searchKeyword = collectSearchKeyword();
+                } option = collectSearchOption();
+            }
         }
     }
 }

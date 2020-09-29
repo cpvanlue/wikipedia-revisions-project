@@ -10,14 +10,14 @@ import java.util.List;
 
 import static edu.bsu.cs222.RevisionParser.createListOfCleanRevisions;
 import static edu.bsu.cs222.RevisionParser.parseRevisionsToList;
-import static edu.bsu.cs222.UserInterface.collectSearchTerm;
+import static edu.bsu.cs222.UserInterface.collectSearchOption;
 import static edu.bsu.cs222.WikipediaConnection.*;
 
 public class MenuTestClass {
 
     @Test
     public void testUserInputReturnSearchTerm(){
-        String searchTerm = collectSearchTerm();
+        String searchTerm = collectSearchOption();
         Assertions.assertEquals("zappa", searchTerm);
     }
 
