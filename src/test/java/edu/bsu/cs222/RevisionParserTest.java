@@ -15,7 +15,7 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 
-import static edu.bsu.cs222.RevisionParser.parseRevisionsToList;
+import static edu.bsu.cs222.RevisionParser.*;
 import static edu.bsu.cs222.WikipediaConnection.connectToWikipedia;
 import static edu.bsu.cs222.WikipediaConnection.readJsonDataFrom;
 
@@ -57,7 +57,7 @@ public class RevisionParserTest {
         JsonObject query = readJsonDataFrom(connection);
         List<JsonObject> revisionsList = parseRevisionsToList(query);
         assert revisionsList != null;
-        String cleanFirstEntry = RevisionParser.createCleanEntry(revisionsList, 0);
+        String cleanFirstEntry = createCleanRevision(revisionsList, 0);
         Assertions.assertEquals("Username: Davenold, Timestamp: 2020-09-27T14:29:15Z\n", cleanFirstEntry);
     }
 
@@ -65,8 +65,8 @@ public class RevisionParserTest {
     public void testCanReturnRedirectsList() throws IOException {
         URLConnection connection = connectToWikipedia("zappa");
         JsonObject query = readJsonDataFrom(connection);
-        RevisionParser parser = new RevisionParser();
-        List<JsonObject> redirectsList = parser.parseRedirectsToList(query);
+        List<JsonObject> redirectsList = parseRedirectsToList(query);
+        assert redirectsList != null;
         Assertions.assertEquals("[{\"from\":\"Zappa\",\"to\":\"Frank Zappa\"}]", redirectsList.toString());
     }
 
@@ -74,9 +74,8 @@ public class RevisionParserTest {
     public void canReturnCleanFirstRedirect() throws IOException {
         URLConnection connection = connectToWikipedia("zappa");
         JsonObject query = readJsonDataFrom(connection);
-        RevisionParser parser = new RevisionParser();
-        List<JsonObject> redirectsList = parser.parseRedirectsToList(query);
-        String cleanFirstRevision = parser.createCleanRedirect(redirectsList, 0);
+        List<JsonObject> redirectsList = parseRedirectsToList(query);
+        String cleanFirstRevision = createCleanRedirect(redirectsList, 0);
         System.out.println(cleanFirstRevision);
         Assertions.assertEquals("Redirects: 1) Zappa -> Frank Zappa\n", cleanFirstRevision);
     }

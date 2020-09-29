@@ -10,44 +10,45 @@ import java.util.Map;
 
 public class RevisionParser {
 
-    public static String parseAndReturnCleanRevisionString(JsonObject object) {
-        List<JsonObject> revisionsList = parseRevisionsToList(object);
-        List<JsonObject> redirectsList = parseRedirectsToList(object);
-        return "\n\n" + createCleanRedirectsList(redirectsList) + createListOfCleanEntries(revisionsList);
+    public static String parseAndReturnCleanResultsString(JsonObject wikiDataObject) {
+        List<JsonObject> revisionsList = parseRevisionsToList(wikiDataObject);
+        List<JsonObject> redirectsList = parseRedirectsToList(wikiDataObject);
+        return "\n\n" + createCleanListOfRevisions(redirectsList) + createListOfCleanRevisions(revisionsList);
     }
 
-    public static List<JsonObject> parseRevisionsToList(JsonObject object){
-        JsonObject pages = object.getAsJsonObject("query").getAsJsonObject("pages");
-        JsonArray jsonArray = null;
+    public static List<JsonObject> parseRevisionsToList(JsonObject wikiDataObject){
+        JsonObject pages = wikiDataObject.getAsJsonObject("query").getAsJsonObject("pages");
+        JsonArray revisionsArray = null;
         List<JsonObject> revisionsList = new ArrayList<>();
         for (Map.Entry<String, JsonElement> entry : pages.entrySet()) {
             JsonObject entryObject = entry.getValue().getAsJsonObject();
-            jsonArray = entryObject.getAsJsonArray("revisions");
+            revisionsArray = entryObject.getAsJsonArray("revisions");
         }
-        if (jsonArray != null) {
-            for (int i = 0; i < jsonArray.size(); i++) {
-                revisionsList.add(jsonArray.get(i).getAsJsonObject());
+        if (revisionsArray != null) {
+            for (int i = 0; i < revisionsArray.size(); i++) {
+                revisionsList.add(revisionsArray.get(i).getAsJsonObject());
             }
         } else {
+            //violates model-view, FIX THIS NEXT LINE
             System.out.println("There is no Wikipedia entry for this query.");
             return null;
         }
         return revisionsList;
     }
 
-    public static String createCleanEntry(List<JsonObject> revisionsList, int i) {
-        JsonObject firstObject = revisionsList.get(i);
-        String firstUsername = firstObject.get("user").getAsString().replaceAll("\"", "");
-        String firstTimestamp = firstObject.get("timestamp").getAsString();
-        return "Username: " + firstUsername + ", Timestamp: " + firstTimestamp + "\n";
+    public static String createCleanRevision(List<JsonObject> revisionsList, int i) {
+        JsonObject revision = revisionsList.get(i);
+        String username = revision.get("user").getAsString().replaceAll("\"", "");
+        String timestamp = revision.get("timestamp").getAsString();
+        return "Username: " + username + ", Timestamp: " + timestamp + "\n";
     }
 
-    public static String createListOfCleanEntries(List<JsonObject> revisionsList) {
+    public static String createListOfCleanRevisions(List<JsonObject> revisionsList) {
         StringBuilder prettyRevisionsList = new StringBuilder();
         if (revisionsList != null){
             for (int i = 0; i < revisionsList.size(); i++) {
-                String cleanEntry = createCleanEntry(revisionsList, i);
-                prettyRevisionsList.append(cleanEntry);
+                String cleanRevision = createCleanRevision(revisionsList, i);
+                prettyRevisionsList.append(cleanRevision);
             }
         } else {
             return null;
@@ -55,11 +56,11 @@ public class RevisionParser {
         return prettyRevisionsList.toString();
     }
 
-    public static List<JsonObject> parseRedirectsToList(JsonObject object) {
-        JsonArray redirects = object.getAsJsonObject("query").getAsJsonArray("redirects");
+    public static List<JsonObject> parseRedirectsToList(JsonObject wikiDataObject) {
+        JsonArray redirectsArray = wikiDataObject.getAsJsonObject("query").getAsJsonArray("redirects");
         List<JsonObject> redirectsList = new ArrayList<>();
-        if (redirects != null) {
-            for (JsonElement redirect : redirects) {
+        if (redirectsArray != null) {
+            for (JsonElement redirect : redirectsArray) {
                 redirectsList.add((JsonObject) redirect);
             }
         } else { return null; }
@@ -77,7 +78,7 @@ public class RevisionParser {
         }
     }
 
-    public static String createCleanRedirectsList(List<JsonObject> redirectsList) {
+    public static String createCleanListOfRevisions(List<JsonObject> redirectsList) {
         StringBuilder prettyRedirectsList = new StringBuilder();
         if (redirectsList != null) {
             for (int i = 0; i < redirectsList.size(); i++) {

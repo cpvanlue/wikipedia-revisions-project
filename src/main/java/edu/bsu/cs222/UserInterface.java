@@ -5,8 +5,7 @@ import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.util.Scanner;
 
-import static edu.bsu.cs222.RevisionParser.createCleanRedirectsList;
-import static edu.bsu.cs222.RevisionParser.parseAndReturnCleanRevisionString;
+import static edu.bsu.cs222.RevisionParser.parseAndReturnCleanResultsString;
 import static edu.bsu.cs222.WikipediaConnection.collectJsonObjectFromWikipedia;
 
 public class UserInterface {
@@ -20,14 +19,14 @@ public class UserInterface {
     public static void main(String[] args) {
         String searchTerm = collectSearchTerm();
         while (!searchTerm.equals("exit")) {
-            JsonObject jsonData;
+            JsonObject wikiData;
             try {
-                jsonData = collectJsonObjectFromWikipedia(searchTerm);
+                wikiData = collectJsonObjectFromWikipedia(searchTerm);
             } catch (IOException e) {
                 System.out.println("No connection available.");
                 return;
             }
-            String cleanList = parseAndReturnCleanRevisionString(jsonData);
+            String cleanList = parseAndReturnCleanResultsString(wikiData);
             System.out.println(cleanList);
             searchTerm = collectSearchTerm();
         }

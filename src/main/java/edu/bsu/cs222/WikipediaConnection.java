@@ -18,7 +18,7 @@ public class WikipediaConnection {
     }
 
     public static URLConnection connectToWikipedia(String searchTerm) throws IOException {
-        searchTerm = keywordToURL(searchTerm);
+        searchTerm = keywordToURLContext(searchTerm);
         URL url;
         url = new URL(
                 "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&format=json&rvprop=timestamp%7Cuser&rvlimit=20&titles="+searchTerm+"&redirects=");
@@ -31,15 +31,15 @@ public class WikipediaConnection {
     public static JsonObject readJsonDataFrom(URLConnection connection) throws IOException {
         StringBuilder jsonStringBuilder = new StringBuilder();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String jsonData;
-        while ((jsonData = bufferedReader.readLine()) != null) {
-            jsonStringBuilder.append(jsonData).append("\n");
+        String jsonDataString;
+        while ((jsonDataString = bufferedReader.readLine()) != null) {
+            jsonStringBuilder.append(jsonDataString).append("\n");
         }
         String websiteInfo = jsonStringBuilder.toString().trim();
         return (JsonObject) JsonParser.parseString(websiteInfo);
     }
 
-    public static String keywordToURL (String input){
-        return input.replaceAll(" ", "+");
+    public static String keywordToURLContext(String keyword){
+        return keyword.replaceAll(" ", "+");
     }
 }

@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.net.URLConnection;
 import java.util.List;
 
-import static edu.bsu.cs222.RevisionParser.createListOfCleanEntries;
+import static edu.bsu.cs222.RevisionParser.createListOfCleanRevisions;
 import static edu.bsu.cs222.RevisionParser.parseRevisionsToList;
 import static edu.bsu.cs222.UserInterface.collectSearchTerm;
 import static edu.bsu.cs222.WikipediaConnection.*;
@@ -28,7 +28,7 @@ public class MenuTestClass {
         URLConnection connection = connectToWikipedia(searchTerm);
         JsonObject query = readJsonDataFrom(connection);
         List<JsonObject> revisionsList = parseRevisionsToList(query);
-        String cleanList = createListOfCleanEntries(revisionsList);
+        String cleanList = createListOfCleanRevisions(revisionsList);
         Assertions.assertEquals("Username: Davenold, Timestamp: 2020-09-27T14:29:15Z\nUsername: DVdm, Timestamp: 2020-09-21T11:32:46Z" +
                         "\nUsername: 179.53.16.150, Timestamp: 2020-09-21T09:22:33Z" +
                         "\nUsername: Strudjum, Timestamp: 2020-09-20T03:13:40Z" +
