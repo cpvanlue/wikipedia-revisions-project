@@ -31,7 +31,6 @@ public class RevisionParser {
         } else {
             //violates model-view, FIX THIS NEXT LINE
             System.out.println("There is no Wikipedia entry for this query.");
-            return null;
         }
         return revisionsList;
     }
