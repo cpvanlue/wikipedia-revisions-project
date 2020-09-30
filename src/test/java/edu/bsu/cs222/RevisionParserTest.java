@@ -7,17 +7,13 @@ import com.google.gson.JsonParser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 
 import static edu.bsu.cs222.RevisionParser.*;
-import static edu.bsu.cs222.WikipediaConnection.connectToWikipedia;
-import static edu.bsu.cs222.WikipediaConnection.readJsonDataFrom;
 
 public class RevisionParserTest {
 
@@ -55,28 +51,10 @@ public class RevisionParserTest {
     }
 
     @Test
-    public void testCanReturnCleanFirstEntry() {
-        JsonObject query = collectSampleDataAsJsonObject();
-        List<JsonObject> revisionsList = parseRevisionsToList(query);
-        String cleanFirstEntry = createCleanRevision(revisionsList, 0);
-        Assertions.assertEquals("Username: DVdm, Timestamp: 2020-09-21T11:32:46Z\n", cleanFirstEntry);
-    }
-
-    @Test
     public void testCanReturnRedirectsList() {
         JsonObject query = collectSampleDataAsJsonObject();
         List<JsonObject> redirectsList = parseRedirectsToList(query);
         assert redirectsList != null;
         Assertions.assertEquals("[{\"from\":\"Zappa\",\"to\":\"Frank Zappa\"}]", redirectsList.toString());
     }
-
-    @Test
-    public void canReturnCleanFirstRedirect() {
-        JsonObject query = collectSampleDataAsJsonObject();
-        List<JsonObject> redirectsList = parseRedirectsToList(query);
-        String cleanFirstRevision = createCleanRedirect(redirectsList, 0);
-        System.out.println(cleanFirstRevision);
-        Assertions.assertEquals("Redirects: 1) Zappa -> Frank Zappa\n", cleanFirstRevision);
-    }
-
 }
