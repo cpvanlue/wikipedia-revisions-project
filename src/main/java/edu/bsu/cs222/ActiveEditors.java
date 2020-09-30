@@ -20,6 +20,9 @@ public class ActiveEditors {
 
     public static String createNumberOfEditsString(List<JsonObject> revisionsList) {
         StringBuilder numberOfEditsString = new StringBuilder();
+        if (revisionsList.isEmpty()) {
+            return "There is no Wikipedia entry for this query.\n\n";
+        }
         for (int i = 0; i < revisionsList.size(); i++) {
             if (i != 0) {
                 int numberOfEdits = collectNumberOfEdits(revisionsList, i);
@@ -27,7 +30,7 @@ public class ActiveEditors {
                 if (!numberOfEditsString.toString().contains(editorAndEdits)) {
                     numberOfEditsString.append(editorAndEdits);
                 }
-                }
+            }
         } return numberOfEditsString.toString();
     }
 }

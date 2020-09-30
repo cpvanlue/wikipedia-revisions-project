@@ -10,7 +10,7 @@ import static edu.bsu.cs222.RevisionParser.parseRevisionsToList;
 import static edu.bsu.cs222.RevisionParserTest.collectSampleDataAsJsonObject;
 import static edu.bsu.cs222.StringFormat.createListOfCleanRevisions;
 
-public class MenuTestClass {
+public class ControllerTestClass {
 
     @Test
     public void testUserInputReturnsCleanList() {
