@@ -10,8 +10,11 @@ import static edu.bsu.cs222.RevisionParser.parseRevisionsToList;
 public class StringFormat {
 
     public static String parseAndReturnCleanResultsString(JsonObject wikiDataObject) {
-        List<JsonObject> revisionsList = parseRevisionsToList(wikiDataObject);
-        List<JsonObject> redirectsList = parseRedirectsToList(wikiDataObject);
+            List<JsonObject> revisionsList = parseRevisionsToList(wikiDataObject);
+            List<JsonObject> redirectsList = parseRedirectsToList(wikiDataObject);
+        if (redirectsList != null && (revisionsList.isEmpty() || redirectsList.isEmpty())) {
+            return "There is no Wikipedia entry for this query.\n";
+        }
         return "\n\n" + createCleanListOfRedirects(redirectsList) + createListOfCleanRevisions(revisionsList);
     }
 

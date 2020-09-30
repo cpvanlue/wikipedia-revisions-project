@@ -22,9 +22,6 @@ public class RevisionParser {
             for (int i = 0; i < revisionsArray.size(); i++) {
                 revisionsList.add(revisionsArray.get(i).getAsJsonObject());
             }
-        } else {
-            //violates model-view, FIX THIS NEXT LINE
-            System.out.println("There is no Wikipedia entry for this query.");
         }
         return revisionsList;
     }
