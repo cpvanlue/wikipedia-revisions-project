@@ -6,8 +6,11 @@ import com.google.gson.JsonParser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 
 public class WikipediaConnection {
@@ -39,7 +42,7 @@ public class WikipediaConnection {
         return (JsonObject) JsonParser.parseString(websiteInfo);
     }
 
-    public static String keywordToURLContext(String keyword){
-        return keyword.replaceAll(" ", "+");
+    public static String keywordToURLContext(String keyword) {
+        return URLEncoder.encode(keyword, StandardCharsets.UTF_8);
     }
 }
