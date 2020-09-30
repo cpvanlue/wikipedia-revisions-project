@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 
 import java.util.List;
 
-import static edu.bsu.cs222.RevisionParser.parseRedirectsToList;
+import static edu.bsu.cs222.RedirectParser.parseRedirectsToList;
 import static edu.bsu.cs222.RevisionParser.parseRevisionsToList;
 
 public class StringFormat {

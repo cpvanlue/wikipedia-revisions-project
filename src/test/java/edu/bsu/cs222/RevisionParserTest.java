@@ -49,12 +49,4 @@ public class RevisionParserTest {
                 "{\"user\":\"Strudjum\",\"timestamp\":\"2020-09-20T03:13:40Z\"}, " +
                 "{\"user\":\"ClueBot NG\",\"timestamp\":\"2020-09-17T20:57:00Z\"}]", revisionsList.toString());
     }
-
-    @Test
-    public void testCanReturnRedirectsList() {
-        JsonObject query = collectSampleDataAsJsonObject();
-        List<JsonObject> redirectsList = parseRedirectsToList(query);
-        assert redirectsList != null;
-        Assertions.assertEquals("[{\"from\":\"Zappa\",\"to\":\"Frank Zappa\"}]", redirectsList.toString());
-    }
 }

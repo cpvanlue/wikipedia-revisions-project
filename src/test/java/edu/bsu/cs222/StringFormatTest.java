@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static edu.bsu.cs222.RedirectParser.parseRedirectsToList;
 import static edu.bsu.cs222.RevisionParser.*;
 import static edu.bsu.cs222.RevisionParserTest.collectSampleDataAsJsonObject;
 import static edu.bsu.cs222.StringFormat.createCleanRedirect;

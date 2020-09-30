@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static edu.bsu.cs222.RevisionParser.createListOfCleanRevisions;
 import static edu.bsu.cs222.RevisionParser.parseRevisionsToList;
 import static edu.bsu.cs222.RevisionParserTest.collectSampleDataAsJsonObject;
+import static edu.bsu.cs222.StringFormat.createListOfCleanRevisions;
 
 public class MenuTestClass {
 
