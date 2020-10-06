@@ -3,13 +3,15 @@ package edu.bsu.cs222;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
+import java.text.ParseException;
 
+import static edu.bsu.cs222.RevisionParser.parseRevisionsToList;
 import static edu.bsu.cs222.StringFormat.parseAndReturnCleanResultsString;
 import static edu.bsu.cs222.WikipediaConnection.collectJsonObjectFromWikipedia;
 
 public class UI {
 
-    public static String collectRecentRevisions(String searchTerm) {
+    public static String collectRecentRevisions(String searchTerm) throws ParseException {
         JsonObject wikiData;
         try {
             wikiData = collectJsonObjectFromWikipedia(searchTerm);
@@ -26,7 +28,7 @@ public class UI {
         } catch (IOException e) {
             return "No connection available.";
         }
-        return ActiveEditors.createNumberOfEditsString(RevisionParser.parseRevisionsToList(wikiData));
+        return ActiveEditors.createSortedEditsString(ActiveEditors.createNumberOfEditsArray(parseRevisionsToList(wikiData)));
     }
 
 

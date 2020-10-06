@@ -6,6 +6,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import java.text.ParseException;
+
 import static edu.bsu.cs222.UI.collectRecentEditors;
 import static edu.bsu.cs222.UI.collectRecentRevisions;
 
@@ -22,7 +24,7 @@ public class Controller {
         return searchField.getText();
     }
 
-    public void collectWikiData(ActionEvent actionEvent) {
+    public void collectWikiData(ActionEvent actionEvent) throws ParseException {
         String searchTerm = collectSearchTermFromView();
         String results = null;
         if (revisionsButton.isSelected()) {

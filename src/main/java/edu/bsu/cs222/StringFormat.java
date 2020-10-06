@@ -2,6 +2,10 @@ package edu.bsu.cs222;
 
 import com.google.gson.JsonObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static edu.bsu.cs222.RedirectParser.parseRedirectsToList;
@@ -9,7 +13,7 @@ import static edu.bsu.cs222.RevisionParser.parseRevisionsToList;
 
 public class StringFormat {
 
-    public static String parseAndReturnCleanResultsString(JsonObject wikiDataObject) {
+    public static String parseAndReturnCleanResultsString(JsonObject wikiDataObject) throws ParseException {
         List<JsonObject> revisionsList = parseRevisionsToList(wikiDataObject);
         List<JsonObject> redirectsList = parseRedirectsToList(wikiDataObject);
          if (revisionsList.isEmpty()) {
@@ -18,14 +22,16 @@ public class StringFormat {
          return "\n\n" + createCleanListOfRedirects(redirectsList) + createListOfCleanRevisions(revisionsList);
     }
 
-    public static String createCleanRevision(List<JsonObject> revisionsList, int i) {
+    public static String createCleanRevision(List<JsonObject> revisionsList, int i) throws ParseException {
         JsonObject revision = revisionsList.get(i);
         String username = revision.get("user").getAsString().replaceAll("\"", "");
         String timestamp = revision.get("timestamp").getAsString();
-        return "Username: " + username + ", Timestamp: " + timestamp + "\n";
+        DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        Date result1 = df1.parse(timestamp);
+        return "Username: " + username + ", Timestamp: " + result1 + "\n";
     }
 
-    public static String createListOfCleanRevisions(List<JsonObject> revisionsList) {
+    public static String createListOfCleanRevisions(List<JsonObject> revisionsList) throws ParseException {
         StringBuilder prettyRevisionsList = new StringBuilder();
         if (revisionsList != null){
             for (int i = 0; i < revisionsList.size(); i++) {
