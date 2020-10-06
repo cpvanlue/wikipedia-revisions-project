@@ -6,49 +6,43 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="354.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="354.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.bsu.cs222.Controller">
    <HBox prefHeight="50.0" prefWidth="600.0">
-      <children>
-         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="606.0" text="Wikipedia Revisions Search">
-            <font>
-               <Font size="21.0" />
-            </font>
-         </Label>
-      </children>
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="606.0" text="Wikipedia Revisions Search">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
    </HBox>
    <HBox prefHeight="33.0" prefWidth="600.0">
-      <children>
-         <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="54.0" prefWidth="229.0" text="Search Term:">
-            <font>
-               <Font size="17.0" />
-            </font>
-            <padding>
-               <Insets right="5.0" />
-            </padding>
-         </Label>
-         <TextField id="searchTermField" alignment="CENTER" />
-      </children>
+      <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="54.0" prefWidth="229.0" text="Search Term:">
+         <font>
+            <Font size="17.0" />
+         </font>
+         <padding>
+            <Insets right="5.0" />
+         </padding>
+      </Label>
+      <TextField id="searchTermField" fx:id="searchField" alignment="CENTER" />
+   </HBox>
+   <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="600.0">
+      <RadioButton id="recentRevisions" fx:id="revisionsButton" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" selected="true" text="20 Recent Revisions">
+         <padding>
+            <Insets left="5.0" right="5.0" />
+         </padding>
+         <toggleGroup>
+            <ToggleGroup fx:id="toggleGroup1" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="editorsButton" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Top Editors of 20 Revisions" toggleGroup="$toggleGroup1">
+         <padding>
+            <Insets left="5.0" right="5.0" />
+         </padding>
+      </RadioButton>
    </HBox>
    <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="600.0">
       <children>
-         <RadioButton id="recentRevisions" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" selected="true" text="20 Recent Revisions">
-            <padding>
-               <Insets left="5.0" right="5.0" />
-            </padding>
-            <toggleGroup>
-               <ToggleGroup fx:id="toggleGroup1" />
-            </toggleGroup>
-         </RadioButton>
-         <RadioButton alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Top Editors of 20 Revisions" toggleGroup="$toggleGroup1">
-            <padding>
-               <Insets left="5.0" right="5.0" />
-            </padding>
-         </RadioButton>
-      </children>
-   </HBox>
-   <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="600.0">
-      <children>
-         <Button alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Search" />
+         <Button fx:id="searchButton" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#collectWikiData" text="Search" />
       </children>
    </HBox>
    <HBox prefHeight="199.0" prefWidth="600.0">
@@ -67,7 +61,7 @@
                <Insets right="20.0" />
             </padding>
          </Label>
-         <TextArea editable="false" prefHeight="179.0" prefWidth="491.0">
+         <TextArea fx:id="resultsTextArea" editable="false" prefHeight="179.0" prefWidth="491.0">
             <HBox.margin>
                <Insets />
             </HBox.margin>
