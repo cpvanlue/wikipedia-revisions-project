@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
 import java.util.List;
 
 import static edu.bsu.cs222.RedirectParser.parseRedirectsToList;
@@ -15,11 +16,11 @@ import static edu.bsu.cs222.StringFormat.createCleanRevision;
 public class StringFormatTest {
 
     @Test
-    public void testCanReturnCleanFirstEntry() {
+    public void testCanReturnCleanFirstEntry() throws ParseException {
         JsonObject query = collectSampleDataAsJsonObject();
         List<JsonObject> revisionsList = parseRevisionsToList(query);
         String cleanFirstEntry = createCleanRevision(revisionsList, 0);
-        Assertions.assertEquals("Username: DVdm, Timestamp: 2020-09-21T11:32:46Z\n", cleanFirstEntry);
+        Assertions.assertEquals("Username: DVdm, Timestamp: Mon Sep 21 11:32:46 EDT 2020\n", cleanFirstEntry);
     }
 
 
