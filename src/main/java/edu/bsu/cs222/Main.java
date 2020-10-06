@@ -1,6 +1,6 @@
 package edu.bsu.cs222;
 
-import static edu.bsu.cs222.Controller.searchAndPullWikiData;
+import static edu.bsu.cs222.UI.searchAndPullWikiData;
 
 public class Main {
 
