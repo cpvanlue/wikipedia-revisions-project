@@ -21,41 +21,35 @@ public class ActiveEditors {
         return counter;
     }
 
-    public static String createNumberOfEditsString(List<JsonObject> revisionsList) {
-        StringBuilder numberOfEditsString = new StringBuilder();
-        if (revisionsList.isEmpty()) {
-            return "There is no Wikipedia entry for this query.\n\n";
+    public static List<Editor> createNumberOfEditsArray(List<JsonObject> revisionsList) {
+        List<Editor> editorsList = new ArrayList<>();
+        if (revisionsList != null) {
+            for (int i = 0; i < revisionsList.size(); i++) {
+                Editor editor = Editor.collectEditorAsObject(revisionsList, i);
+                editorsList.add(editor);
+                editorsList.sort(Comparator.comparing(Editor::getNumberOfEdits));
+                Collections.reverse(editorsList);
+
+            }
+            return editorsList;
+        } else {
+            return null;
         }
-        for (int i = 0; i < revisionsList.size(); i++) {
-            if (i != 0) {
-                int numberOfEdits = collectNumberOfEdits(revisionsList, i);
-                String editorAndEdits = "Username: " + revisionsList.get(i).get("user").getAsString() + " Number of Edits: " + numberOfEdits + "\n";
+    }
+
+    public static String createSortedEditsString(List<Editor> editorsList) {
+        if (editorsList.isEmpty()) {
+            return "There is no Wikipedia entry for this query.";
+        } else {
+            StringBuilder numberOfEditsString = new StringBuilder();
+            for (Editor editor : editorsList) {
+                String editorAndEdits = editor.getNumberOfEdits() + " edits made by user: " + editor.getUser() + "\n";
                 if (!numberOfEditsString.toString().contains(editorAndEdits)) {
                     numberOfEditsString.append(editorAndEdits);
                 }
             }
-        } return numberOfEditsString.toString();
-    }
-
-    public static List<Editor> createNumberOfEditsArray(List<JsonObject> revisionsList) {
-        List<Editor> editorsList = new ArrayList<>();
-        for (int i = 0; i < revisionsList.size(); i++) {
-            Editor editor = Editor.collectEditorAsObject(revisionsList, i);
-            editorsList.add(editor);
-            Collections.sort(editorsList, Comparator.comparing(Editor::getNumberOfEdits));
-            Collections.reverse(editorsList);
+            String mostActiveEditor = "Top editor for this page: " + editorsList.get(0).getUser() + " with " + editorsList.get(0).getNumberOfEdits() + " edits.\n\n";
+            return mostActiveEditor + numberOfEditsString.toString();
         }
-        return editorsList;
-    }
-
-    public static String createSortedEditsString(List<Editor> editorsList) {
-        StringBuilder numberOfEditsString = new StringBuilder();
-        for (int i = 0; i < editorsList.size(); i++) {
-            String editorAndEdits = editorsList.get(i).getNumberOfEdits() + " edits made by user: " + editorsList.get(i).getUser() + "\n";
-            if (!numberOfEditsString.toString().contains(editorAndEdits)) {
-                numberOfEditsString.append(editorAndEdits);
-            }
-        } String mostActiveEditor = "Top editor for this page: " + editorsList.get(0).getUser() + " with " + editorsList.get(0).getNumberOfEdits() + " edits.\n\n";
-        return mostActiveEditor + numberOfEditsString.toString();
     }
 }
