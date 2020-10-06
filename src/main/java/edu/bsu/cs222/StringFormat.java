@@ -19,7 +19,7 @@ public class StringFormat {
          if (revisionsList.isEmpty()) {
              return "There is no Wikipedia entry for this query.\n";
          }
-         return "\n\n" + createCleanListOfRedirects(redirectsList) + createListOfCleanRevisions(revisionsList);
+         return createCleanListOfRedirects(redirectsList) + createListOfCleanRevisions(revisionsList);
     }
 
     public static String createCleanRevision(List<JsonObject> revisionsList, int i) throws ParseException {
