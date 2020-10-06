@@ -55,6 +55,7 @@ public class ActiveEditors {
             if (!numberOfEditsString.toString().contains(editorAndEdits)) {
                 numberOfEditsString.append(editorAndEdits);
             }
-        } return numberOfEditsString.toString();
+        } String mostActiveEditor = "Top editor for this page: " + editorsList.get(0).getUser() + " with " + editorsList.get(0).getNumberOfEdits() + " edits.\n\n";
+        return mostActiveEditor + numberOfEditsString.toString();
     }
 }
