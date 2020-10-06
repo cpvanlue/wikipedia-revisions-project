@@ -40,35 +40,32 @@
          </padding>
       </RadioButton>
    </HBox>
-   <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="600.0">
-      <children>
-         <Button fx:id="searchButton" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#collectWikiData" text="Search" />
-      </children>
-   </HBox>
-   <HBox prefHeight="199.0" prefWidth="600.0">
-      <children>
-         <Label alignment="TOP_CENTER" contentDisplay="TOP" text="Results:">
-            <font>
-               <Font size="14.0" />
-            </font>
-            <opaqueInsets>
-               <Insets left="20.0" />
-            </opaqueInsets>
-            <cursor>
-               <Cursor fx:constant="DEFAULT" />
-            </cursor>
-            <padding>
-               <Insets right="20.0" />
-            </padding>
-         </Label>
-         <TextArea fx:id="resultsTextArea" editable="false" prefHeight="179.0" prefWidth="491.0">
-            <HBox.margin>
-               <Insets />
-            </HBox.margin>
-         </TextArea>
-      </children>
-      <padding>
-         <Insets left="20.0" />
-      </padding>
-   </HBox>
+    <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="600.0">
+        <Button fx:id="searchButton" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+                onAction="#collectWikiData" text="Search"/>
+    </HBox>
+    <HBox prefHeight="199.0" prefWidth="600.0">
+        <padding>
+            <Insets left="20.0"/>
+        </padding>
+        <Label alignment="TOP_CENTER" contentDisplay="TOP" text="Results:">
+           <font>
+               <Font size="14.0"/>
+           </font>
+           <opaqueInsets>
+               <Insets left="20.0"/>
+           </opaqueInsets>
+           <cursor>
+               <Cursor fx:constant="DEFAULT"/>
+           </cursor>
+           <padding>
+               <Insets right="20.0"/>
+           </padding>
+        </Label>
+        <TextArea fx:id="resultsTextArea" editable="false" prefHeight="179.0" prefWidth="491.0">
+           <HBox.margin>
+               <Insets/>
+           </HBox.margin>
+        </TextArea>
+    </HBox>
 </VBox>

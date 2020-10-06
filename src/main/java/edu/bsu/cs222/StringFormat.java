@@ -3,7 +3,6 @@ package edu.bsu.cs222;
 import com.google.gson.JsonObject;
 
 import java.util.List;
-import java.util.Objects;
 
 import static edu.bsu.cs222.RedirectParser.parseRedirectsToList;
 import static edu.bsu.cs222.RevisionParser.parseRevisionsToList;

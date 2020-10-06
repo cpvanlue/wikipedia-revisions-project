@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class Main extends Application {
 
 
@@ -13,7 +15,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         String fxmlResource = "GUI.fxml";
         Parent panel;
-        panel = FXMLLoader.load(getClass().getClassLoader().getResource(fxmlResource));
+        panel = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource(fxmlResource)));
         Scene scene = new Scene(panel);
         Stage stage = new Stage();
         stage.setScene(scene);
